@@ -13,7 +13,6 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-import patterns as patterns
 from django.conf.urls import url
 from django.conf.urls.static import static
 from django.contrib import admin
@@ -22,8 +21,8 @@ from django.urls import path, include, re_path
 from rest_framework.documentation import include_docs_urls
 from rest_framework_swagger.views import get_swagger_view
 
-from account import views
 from djangosample import settings
+from rabbitmqchat.views import views
 
 schema_view = get_swagger_view(title="wallpaper API")
 urlpatterns = [
@@ -37,8 +36,10 @@ urlpatterns = [
     url(r'^logout/$', views.user_logout, name='logout'),
     path('account/', include('useraccountapi.urls')),
     path('wallpapers/', include('wallpaperapi.urls')),
-    path(r'swagger-docs/', schema_view),
+    path(r'swagger-docs/', schema_view),                                                                                                                
     path(r'docs/', include_docs_urls(title='Wallpaper API')),
+    url(r'^generate/$', views.GenerateRandomUserView.as_view(), name='generate'),
+    url(r'^userlist', views.UsersListView.as_view(), name='users_list'),
 ]
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

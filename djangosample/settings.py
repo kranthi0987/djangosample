@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'wallpaperapi',
     'rest_framework.authtoken',
     'corsheaders',
+    'rabbitmq',
 ]
 
 MIDDLEWARE = [
@@ -195,3 +196,5 @@ CORS_ORIGIN_WHITELIST = [
 CORS_ORIGIN_REGEX_WHITELIST = [
     'http://localhost:3000',
 ]
+
+CELERY_BROKER_URL = 'amqp://localhost'
